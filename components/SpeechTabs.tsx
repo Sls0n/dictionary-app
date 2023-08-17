@@ -2,18 +2,29 @@
 
 import { useContext } from "react";
 import { DataContext } from "@/context/DataContext";
+import SpeechTabButton from "./SpeechTabButton";
 
 export default function SpeechTabs() {
   const { currentSpeechTab, setCurrentSpeechTab } = useContext(DataContext);
 
+  const currentSpeechTabHandler = (tab: "noun" | "verb") => {
+    setCurrentSpeechTab(tab);
+  };
+
   return (
     <div className="flex gap-3">
-      <button className="w-[5.5rem] h-8 bg-dark text-white rounded-[5px]">
+      <SpeechTabButton
+        active={currentSpeechTab === "noun"}
+        onClick={() => currentSpeechTabHandler("noun")}
+      >
         noun
-      </button>
-      <button className="w-[5.5rem] h-8 bg-secondary rounded-[5px]">
+      </SpeechTabButton>
+      <SpeechTabButton
+        active={currentSpeechTab === "verb"}
+        onClick={() => currentSpeechTabHandler("verb")}
+      >
         verb
-      </button>
+      </SpeechTabButton>
     </div>
   );
 }

@@ -1,18 +1,16 @@
+"use client";
+
 import PlayPauseSvg from "./IconJSX/PlayPauseSvg";
 import SpeechTabs from "./SpeechTabs";
 
-interface Meaning {
-  definition: string;
-}
-
-type DictionaryProps = {
+interface DictionaryProps {
   pronunciation: string;
-  meanings: Meaning[];
-};
+  meanings: any;
+}
 
 const Dictionary = ({ pronunciation, meanings }: DictionaryProps) => {
   return (
-    <div className="max-h-[30rem] rounded-2xl w-full border-2 border-border px-6 py-8 flex flex-col gap-6">
+    <div className="max-h-fit rounded-2xl w-full border-2 border-border px-6 py-8 flex flex-col gap-6">
       {/* Upper part */}
       <div className="flex items-center gap-4">
         <PlayPauseSvg state="play" />
@@ -29,9 +27,9 @@ const Dictionary = ({ pronunciation, meanings }: DictionaryProps) => {
           role="list"
           className="list-decimal list-inside flex flex-col gap-3 font-medium"
         >
-          {meanings.map((meaning, index) => (
-            <li key={index}>{meaning.definition}</li>
-          ))}
+          {meanings.map((meaning: any, index: any) => {
+            return <li key={index}>{meaning.definition}</li>;
+          })}
         </ol>
       </div>
     </div>

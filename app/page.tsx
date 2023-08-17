@@ -1,22 +1,67 @@
+"use client";
+
 import Dictionary from "@/components/Dictionary";
 import SearchBar from "@/components/SearchBar";
+import { DataContext } from "@/context/DataContext";
+import { useContext, useEffect, useState } from "react";
 
 export default function Home() {
-  const meaningsJson = [
-    {
-      definition:
-        "A common, round fruit produced by the tree Malus domestica, cultivated in temperate climates.",
-    },
-    {
-      definition:
-        "Any of various tree-borne fruits or vegetables especially considered as resembling an apple; also (with qualifying words) used to form the names of other specific fruits such as custard apple, rose apple, thorn apple etc.",
-    },
-  ];
+  const [isError, setIsError] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const { word, setData, data, currentSpeechTab } = useContext(DataContext);
+
+  useEffect(() => {
+    if (!word) return;
+    async function fetchData(query: string) {
+      try {
+        setLoading(true);
+        const response = await fetch(
+          `https://api.dictionaryapi.dev/api/v2/entries/en/${query}`
+        );
+
+        if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
+
+        const data = await response.json();
+        setData(data[0]);
+        setIsError(false);
+      } catch (err: any) {
+        setIsError(true);
+        setErrorMessage(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData(word);
+  }, [setData, word]);
 
   return (
     <section className="flex flex-col gap-12">
       <SearchBar />
-      <Dictionary pronunciation="/ˈæp.əl/" meanings={meaningsJson} />
+      {loading && (
+        <div className="w-full h-full">
+          <p>loading...</p>
+        </div>
+      )}
+      {data && !isError && (
+        <Dictionary
+          pronunciation={data?.phonetic}
+          meanings={
+            data?.meanings[currentSpeechTab === "noun" ? 0 : 1].definitions
+          }
+        />
+      )}
+
+      {isError && (
+        <>
+          <div className="flex flex-col gap-y-4">
+            <pre>{errorMessage}</pre>
+            <p className="text-md text-red-500 ">The word wasnt found!</p>
+          </div>
+        </>
+      )}
     </section>
   );
 }
