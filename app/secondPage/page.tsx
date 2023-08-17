@@ -26,6 +26,7 @@ export default function SecondPage() {
         meanings={
           data?.meanings[currentSpeechTab === "noun" ? 0 : 1].definitions
         }
+        audioSrc={data?.phonetics[0].audio}
       />
     </div>
   );
