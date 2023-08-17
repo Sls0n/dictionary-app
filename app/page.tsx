@@ -2,6 +2,7 @@
 
 import Dictionary from "@/components/Dictionary";
 import SearchBar from "@/components/SearchBar";
+import SuvayeBanner from "@/components/SuvayeBanner";
 import { DataContext } from "@/context/DataContext";
 import { useContext, useEffect, useState } from "react";
 
@@ -62,6 +63,8 @@ export default function Home() {
           </div>
         </>
       )}
+
+      {!loading && data && <SuvayeBanner />}
     </section>
   );
 }
