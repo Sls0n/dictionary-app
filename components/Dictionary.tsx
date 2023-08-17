@@ -1,4 +1,5 @@
 import PlayPauseSvg from "./IconJSX/PlayPauseSvg";
+import SpeechTabs from "./SpeechTabs";
 
 interface Meaning {
   definition: string;
@@ -21,14 +22,7 @@ const Dictionary = ({ pronunciation, meanings }: DictionaryProps) => {
       {/* Middle part */}
       <div className="flex-1 flex flex-col gap-8 items-start px-1">
         {/* Buttons (noun & verb) */}
-        <div className="flex gap-3">
-          <button className="w-[5.5rem] h-8 bg-dark text-white rounded-[5px]">
-            noun
-          </button>
-          <button className="w-[5.5rem] h-8 bg-secondary rounded-[5px]">
-            verb
-          </button>
-        </div>
+        <SpeechTabs />
 
         {/* Text (meaning) */}
         <ol

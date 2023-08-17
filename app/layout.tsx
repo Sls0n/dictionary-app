@@ -1,7 +1,8 @@
 import Navbar from "@/components/Navbar";
-import "@/styles/globals.css";
-import type { Metadata } from "next";
+import { DataContextProvider } from "@/context/DataContext";
 import LocalFont from "next/font/local";
+import type { Metadata } from "next";
+import "@/styles/globals.css";
 
 export const metadata: Metadata = {
   title: "Frontend assignment — Sls0n",
@@ -25,8 +26,9 @@ export default function RootLayout({
         className={`${Font.className} mx-auto max-w-[60rem] px-4 sm:px-6 lg:px-8`}
       >
         <Navbar />
-
-        <main className="pt-[7rem] px-2">{children}</main>
+        <DataContextProvider>
+          <main className="pt-[7rem] px-2">{children}</main>
+        </DataContextProvider>
       </body>
     </html>
   );
