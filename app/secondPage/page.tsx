@@ -12,8 +12,12 @@ export default function SecondPage() {
     return (
       <div className="flex flex-col gap-4 items-start">
         <pre>ERROR!</pre>
-        <p className="text-sm text-red-500 ">First fetch data from the root route, then navigate here</p>
-        <Link href='/' className="bg-red-700 text-white p-2 rounded-md">&larr; Go back</Link>
+        <p className="text-sm text-red-500 ">
+          First fetch data from the root route, then navigate here
+        </p>
+        <Link href="/" className="bg-red-700 text-white p-2 rounded-md">
+          &larr; Go back
+        </Link>
       </div>
     );
   }
@@ -24,7 +28,9 @@ export default function SecondPage() {
       <Dictionary
         pronunciation={data?.phonetic}
         meanings={
-          data?.meanings[currentSpeechTab === "noun" ? 0 : 1]?.definitions
+          data?.meanings[currentSpeechTab === "noun" ? 0 : 1]?.definitions || [
+            { definition: "NO DEFINITION FOUND" },
+          ]
         }
         audioSrc={data?.phonetics[0]?.audio}
       />

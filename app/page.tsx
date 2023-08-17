@@ -50,7 +50,8 @@ export default function Home() {
         <Dictionary
           pronunciation={data?.phonetic}
           meanings={
-            data?.meanings[currentSpeechTab === "noun" ? 0 : 1]?.definitions
+            data?.meanings[currentSpeechTab === "noun" ? 0 : 1]
+              ?.definitions || [{ definition: "NO DEFINITION FOUND" }]
           }
           audioSrc={data?.phonetics[0]?.audio}
         />
